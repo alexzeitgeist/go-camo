@@ -54,8 +54,26 @@ with an <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a>.</p>
 it, and then place the pieces into the expected format replacing the original
 image URL.</p>
 
-<p>The client requests the URL to Go-Camo. Go-Camo validates the HMAC, decodes the
-URL, requests the content and streams it to the client.</p>
+<p>The client requests the generated URL from Go-Camo. Go-Camo validates the HMAC, decodes the URL, then requests the content and streams it to the client.</p>
+
+
+<pre><code>+----------+           request            +-------------+
+|          |----------------------------->|             |
+|          |                              |             |
+|          |                              |   web-app   |
+|          | img src=https://go-camo/url  |             |
+|          |<-----------------------------|             |
+|          |                              +-------------+
+|  client  |
+|          |     https://go-camo/url      +-------------+ http://some/img
+|          |----------------------------->|             |--------------->
+|          |                              |             |
+|          |                              |   go-camo   |
+|          |           img data           |             |    img data
+|          |<-----------------------------|             |<---------------
+|          |                              +-------------+
++----------+
+</code></pre>
 
 <p>Go-Camo supports both hex and base64 encoded urls at the same time.</p>
 
