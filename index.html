@@ -21,8 +21,7 @@
       <div id="header">
         <nav>
           <li class="fork"><a href="https://github.com/cactus/go-camo">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/cactus/go-camo/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/cactus/go-camo/tarball/master">TAR</a></li>
+          <li class="downloads"><a href="https://github.com/cactus/go-camo/releases">Releases</a></li>
           <li class="title">DOWNLOADS</li>
         </nav>
       </div><!-- end header -->
@@ -34,19 +33,13 @@
           <h1>Go-camo</h1>
           <p>Go version of Camo server.</p>
           <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/cactus">cactus</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <h1>
-<a id="go-camo" class="anchor" href="#go-camo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>go-camo</h1>
-
-<p><a href="https://travis-ci.org/cactus/go-camo"><img src="https://travis-ci.org/cactus/go-camo.png?branch=master" alt="Build Status"></a></p>
 
 <h2>
-<a id="about" class="anchor" href="#about" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About</h2>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h2>
 
-<p>Go version of <a href="https://github.com/atmos/camo">Camo</a> server.</p>
+<p>Go-camo is a Go version of <a href="https://github.com/atmos/camo">Camo</a> server.</p>
 
 <p><a href="https://github.com/atmos/camo">Camo</a> is a special type of image proxy that proxies non-secure images over
 SSL/TLS. This prevents mixed content warnings on secure pages.</p>
@@ -55,7 +48,7 @@ SSL/TLS. This prevents mixed content warnings on secure pages.</p>
 with an <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a>.</p>
 
 <h2>
-<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How it works</h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>How it works</h2>
 
 <p>First you parse the original URL, generate an HMAC signature of it, then encode
 it, and then place the pieces into the expected format replacing the original
@@ -94,7 +87,7 @@ client simply fetch those as they are. The linked code examples do this.</p>
 <p>Note that it is recommended to front Go-Camo with a CDN when possible.</p>
 
 <h2>
-<a id="differences-from-camo" class="anchor" href="#differences-from-camo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Differences from Camo</h2>
+<a id="differences-from-camo" class="anchor" href="#differences-from-camo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Differences from Camo</h2>
 
 <ul>
 <li>  Go-Camo supports 'Path Format' url format only. Camo's "Query
@@ -123,9 +116,7 @@ Extract, and copy files to desired locations.</p>
 <h2>
 <a id="building" class="anchor" href="#building" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building</h2>
 
-<p>Building requires <code>git</code> and <code>make</code>. Optional requirements are <code>pod2man</code> (to
-build man pages).  A functional <a href="http://golang.org/doc/install">Go</a> installation (version &gt;= 1.4) is also
-required.</p>
+<p>Building requires <code>git</code>, <code>make</code>, and <code>pod2man</code> (optional/required to build man pages) A functional <a href="http://golang.org/doc/install">Go</a> installation (version &gt;= 1.4) is also required.</p>
 
 <pre><code># show make targets
 $ make
@@ -152,13 +143,7 @@ $ make all
 $ make all GOBUILD_LDFLAGS="-s"
 </code></pre>
 
-<p>By default, Go-Camo builds with <code>-tags netgo</code>. However, depending on your
-Go version, this will not actually result in Go-Camo using the netgo resolver
-unless your Go stdlib is similarly compiled. There are <a href="https://github.com/cactus/go-camo/issues/6">known</a> issues with
-using the libc resolver with significant traffic amounts over time. The use of
-netgo is recommended. Prior to Go 1.5, to recompile your Go net libraries to
-use netgo, do the following as root (or the owner of your GOROOT install)
-before building Go-Camo:</p>
+<p>By default, Go-Camo builds with <code>-tags netgo</code>. However, depending on your Go version, this will not actually result in Go-Camo using the netgo resolver unless your Go stdlib is similarly compiled. There are <a href="https://github.com/cactus/go-camo/issues/6">known</a> issues with using the libc resolver with significant traffic amounts over time. The use of netgo is recommended. Prior to Go 1.5, to recompile your Go net libraries to use netgo, do the following as root (or the owner of your GOROOT install) before building Go-Camo:</p>
 
 <pre><code>$ go clean -i net
 $ go install -a -tags netgo std
@@ -182,7 +167,7 @@ libc.so.6 =&gt; /lib64/libc.so.6 (0x0000003fb2600000)
 </code></pre>
 
 <h2>
-<a id="running" class="anchor" href="#running" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running</h2>
+<a id="running" class="anchor" href="#running" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running</h2>
 
 <pre><code>$ go-camo -k "somekey"
 </code></pre>
@@ -197,7 +182,7 @@ to launch in a process supervisor, and drop privileges as appropriate.</p>
 addition, the code is much simpler because of it.</p>
 
 <h2>
-<a id="running-on-heroku" class="anchor" href="#running-on-heroku" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running on Heroku</h2>
+<a id="running-on-heroku" class="anchor" href="#running-on-heroku" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running on Heroku</h2>
 
 <p>In order to use this on Heroku with the provided Procfile, you need to:</p>
 
@@ -208,17 +193,17 @@ buildpack</li>
 </ol>
 
 <h2>
-<a id="configuring" class="anchor" href="#configuring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring</h2>
+<a id="configuring" class="anchor" href="#configuring" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring</h2>
 
 <h3>
-<a id="environment-vars" class="anchor" href="#environment-vars" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environment Vars</h3>
+<a id="environment-vars" class="anchor" href="#environment-vars" aria-hidden="true"><span class="octicon octicon-link"></span></a>Environment Vars</h3>
 
 <ul>
 <li>  <code>GOCAMO_HMAC</code> - HMAC key to use.</li>
 </ul>
 
 <h3>
-<a id="command-line-flags" class="anchor" href="#command-line-flags" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command line flags</h3>
+<a id="command-line-flags" class="anchor" href="#command-line-flags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command line flags</h3>
 
 <pre><code>$ go-camo -h
 Usage:
@@ -273,12 +258,12 @@ by default, you could add this to the command line:</p>
 </code></pre>
 
 <h2>
-<a id="additional-tools" class="anchor" href="#additional-tools" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional tools</h2>
+<a id="additional-tools" class="anchor" href="#additional-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Additional tools</h2>
 
 <p>Go-Camo includes a couple of additional tools.</p>
 
 <h3>
-<a id="url-tool" class="anchor" href="#url-tool" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>url-tool</h3>
+<a id="url-tool" class="anchor" href="#url-tool" aria-hidden="true"><span class="octicon octicon-link"></span></a>url-tool</h3>
 
 <p>The <code>url-tool</code> utility provides a simple way to generate signed URLs from the command line.</p>
 
@@ -316,7 +301,7 @@ http://golang.org/doc/gopher/frontpage.png
 </code></pre>
 
 <h3>
-<a id="simple-server" class="anchor" href="#simple-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>simple-server</h3>
+<a id="simple-server" class="anchor" href="#simple-server" aria-hidden="true"><span class="octicon octicon-link"></span></a>simple-server</h3>
 
 <p>The <code>simple-server</code> utility is useful for testing. It serves the contents of a
 given directory over http. Nothing more.</p>
@@ -333,18 +318,21 @@ Help Options:
 </code></pre>
 
 <h2>
-<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changelog</h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
 
-<p>See <code>CHANGELOG.md</code></p>
+<p>See <a href="https://github.com/cactus/go-camo/blob/master/CHANGELOG.md">CHANGELOG.md</a></p>
 
 <h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT
-license</a>. See <code>LICENSE.md</code>
-file for details.</p>
+license</a>. See <a href="https://github.com/cactus/go-camo/blob/master/LICENSE.md">LICENSE.md</a> file for details.</p>
+        <div id="footer">
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/cactus">cactus</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
       </section>
-
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
