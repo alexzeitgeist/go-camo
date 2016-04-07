@@ -87,14 +87,23 @@ image URL.</p>
 <tbody>
 <tr>
 <td>hex</td>
-<td>longer, case insensitive, slightly faster encode/decode</td>
+<td>longer, case insensitive, slightly faster (<em>pre go1.6</em>)</td>
 </tr>
 <tr>
 <td>base64</td>
-<td>shorter, case sensitive, slightly slower encode/decode</td>
+<td>shorter, case sensitive, slightly slower (<em>pre go1.6</em>)</td>
 </tr>
 </tbody>
 </table>
+
+<p><strong>NOTE</strong>: As of go1.6 base64 is very close to hex in terms of
+performance.</p>
+
+<pre><code>BenchmarkHexEncoder-2             500000          3027 ns/op
+BenchmarkB64Encoder-2             500000          3234 ns/op
+BenchmarkHexDecoder-2             500000          3609 ns/op
+BenchmarkB64Decoder-2             500000          3495 ns/op
+</code></pre>
 
 <p>For examples of url generation, see the <a href="examples/">examples</a> directory.</p>
 
@@ -137,10 +146,10 @@ Extract, and copy files to desired locations.</p>
 <p>Building requires:</p>
 <pre><code>* git
 * make
-* pod2man # optional/required to build man pages
+* go (version >= 1.4 required, 1.6 recommended) 
 </code></pre>
 
-<p>A functional <a href="http://golang.org/doc/install">Go</a> installation (version &gt;= 1.4) is also required.</p>
+<p>Building:</p>
 
 <pre><code># show make targets
 $ make
