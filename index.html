@@ -281,7 +281,7 @@ an HMAC key set in the environment var.</p>
 
 <pre><code>X-Content-Type-Options: nosniff
 X-XSS-Protection: 1; mode=block
-Content-Security-Policy: default-src 'none'`
+Content-Security-Policy: default-src 'none'; img-src data:; style-src 'unsafe-inline'
 </code></pre>
 
 <p>As an example, if you wanted to return a <code>Strict-Transport-Security</code> header
