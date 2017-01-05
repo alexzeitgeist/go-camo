@@ -33,6 +33,7 @@ var ValidRespHeaders = map[string]bool{
 	"Cache-Control":     true,
 	"Content-Encoding":  true,
 	"Content-Type":      true,
+	"Content-Length":    true,
 	"Transfer-Encoding": true,
 	"Expires":           true,
 	"Last-Modified":     true,
