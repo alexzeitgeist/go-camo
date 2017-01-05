@@ -27,7 +27,7 @@ import (
 
 var (
 	// ServerName holds the server name string
-	ServerName = "go-camo"
+	ServerName = "Camo Asset Proxy"
 	// ServerVersion holds the server version string
 	ServerVersion = "no-version"
 )
