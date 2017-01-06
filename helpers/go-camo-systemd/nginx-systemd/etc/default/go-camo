@@ -1,0 +1,8 @@
+# Secret HMAC key
+GOCAMO_HMAC=<mysecretkey>
+
+# Number of simultaneous system threads
+GOMAXPROCS=
+
+# Options to pass to go-camo
+GOCAMO_OPTS=--listen=127.0.0.1:8080 --no-bk '--header-via=My Asset Proxy'

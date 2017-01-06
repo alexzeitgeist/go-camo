@@ -1,0 +1,15 @@
+[Unit]
+Description=Go-Camo Image Proxy
+Documentation=https://github.com/cactus/go-camo
+After=syslog.target network.target nss-lookup.target
+
+[Service]
+Type=simple
+User=nobody
+EnvironmentFile=/etc/default/go-camo
+ExecStart=/usr/bin/go-camo-netgo $GOCAMO_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
