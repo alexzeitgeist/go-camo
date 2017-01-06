@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"net/http"
 	"net/url"
@@ -157,6 +158,14 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	mlog.Debugm("built outgoing request", mlog.Map{"req": nreq})
 
 	resp, err := p.client.Do(nreq)
+
+	if resp != nil {
+		defer func() {
+			io.Copy(ioutil.Discard, resp.Body)
+			resp.Body.Close()
+		}()
+	}
+
 	if err != nil {
 		mlog.Debugm("could not connect to endpoint", mlog.Map{"err": err})
 		// this is a bit janky, but better than peeling off the
@@ -177,7 +186,6 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
-	defer resp.Body.Close()
 
 	mlog.Debugm("response from upstream", mlog.Map{"resp": resp})
 
