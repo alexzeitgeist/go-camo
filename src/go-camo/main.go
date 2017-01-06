@@ -27,7 +27,7 @@ import (
 
 var (
 	// ServerName holds the server name string
-	ServerName = "Camo Asset Proxy"
+	ServerName = "go-camo"
 	// ServerVersion holds the server version string
 	ServerVersion = "no-version"
 )
@@ -56,6 +56,7 @@ func main() {
 		TrySetFilename      bool          `long:"try-filename" description:"Try to set filename via Content-Disposition header"`
 		BindAddress         string        `long:"listen" default:"0.0.0.0:8080" description:"Address:Port to bind to for HTTP"`
 		BindAddressSSL      string        `long:"ssl-listen" description:"Address:Port to bind to for HTTPS/SSL/TLS"`
+		ServerName          string        `long:"header-via" description:"Server name to include in the Via and User-Agent headers sent in requests to origin servers"`
 		SSLKey              string        `long:"ssl-key" description:"ssl private key (key.pem) path"`
 		SSLCert             string        `long:"ssl-cert" description:"ssl cert (cert.pem) path"`
 		Verbose             bool          `short:"v" long:"verbose" description:"Show verbose (debug) log level output"`
@@ -162,7 +163,10 @@ func main() {
 	config.MaxSize = opts.MaxSize * 1024
 	config.RequestTimeout = opts.ReqTimeout
 	config.MaxRedirects = opts.MaxRedirects
-	config.ServerName = ServerName
+
+	if config.ServerName = opts.ServerName; config.ServerName == "" {
+		config.ServerName = ServerName
+	}
 
 	proxy, err := camo.New(config)
 	if err != nil {
