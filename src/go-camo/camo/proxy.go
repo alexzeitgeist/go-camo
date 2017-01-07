@@ -235,7 +235,9 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	if p.config.TrySetFilename {
 		filename := p.getFilename(u)
 		if filename != "" {
-			h.Add("Content-Disposition", fmt.Sprintf("filename=%s", filename))
+			encoded, escaped := prepareFilename(filename)
+			// RFC5987 §3.2.1 - syntax of regular and extended header value encoding
+			h.Add("Content-Disposition", fmt.Sprintf(`filename="%s"; filename*=UTF-8''%s`, escaped, encoded))
 		}
 	}
 
@@ -273,6 +275,16 @@ func (p *Proxy) getFilename(u *url.URL) string {
 	pth := u.Path
 	_, file := filepath.Split(pth)
 	return file
+}
+
+func prepareFilename(s string) (string, string) {
+	encoded := url.QueryEscape(s)
+	encoded = strings.Replace(encoded, "+", "%20", -1)
+	// RFC2616 §2.2 - syntax of quoted strings
+	escaped := strings.Replace(s, `\`, `\\`, -1)
+	escaped = strings.Replace(escaped, `"`, `\"`, -1)
+
+	return encoded, escaped
 }
 
 // copy headers from src into dst
