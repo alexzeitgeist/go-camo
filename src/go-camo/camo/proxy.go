@@ -10,7 +10,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"net/url"
@@ -173,10 +172,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	resp, err := p.client.Do(nreq)
 
 	if resp != nil {
-		defer func() {
-			io.Copy(ioutil.Discard, resp.Body)
-			resp.Body.Close()
-		}()
+		defer resp.Body.Close()
 	}
 
 	if err != nil {

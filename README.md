@@ -3,6 +3,21 @@ go-camo
 
 [![Build Status](https://travis-ci.org/cactus/go-camo.png?branch=master)](https://travis-ci.org/cactus/go-camo)
 
+## Contents
+
+*   [About](#about)
+*   [How it works](#how-it-works)
+*   [Differences from Camo](#differences-from-camo)
+*   [Installing pre-built binaries](#installing-pre-built-binaries)
+*   [Building](#building)
+*   [Running](#running)
+*   [Running on Heroku](#running-on-heroku)
+*   [Securing an installation](#securing-an-installation)
+*   [Configuring](#configuring)
+*   [Additional tools](#additional-tools)
+*   [Changelog](#changelog)
+*   [License](#license)
+
 ## About
 
 Go version of [Camo][1] server.
@@ -81,7 +96,7 @@ Note that it is recommended to front Go-Camo with a CDN when possible.
 *   Go-Camo allows custom default headers to be added -- useful for things
     like adding [HSTS][10] headers.
 
-## Installing pre-build binaries
+## Installing pre-built binaries
 
 Download the tarball appropriate for your OS/ARCH from [releases][13].
 Extract, and copy files to desired locations.
@@ -179,18 +194,20 @@ resolution. Do note, however, that this does not provide protecton for a
 network that uses public address space (ipv4 or ipv6), or some of the
 [more exotic][16] ipv6 addresses.
 
-The list of networks currently rejected include:
+The list of networks currently rejected include...
 
-*   127.0.0.0/8 (loopback)
-*   169.254.0.0/16 (ipv4 link local)
-*   10.0.0.0/8 (rfc1918)
-*   172.16.0.0/12 (rfc1918)
-*   192.168.0.0/16 (rfc1918)
-*   ::1/128 (ipv6 loopback)
-*   fe80::/10 (ipv6 link local)
-*   fec0::/10 (deprecated ipv6 site-local)
-*   fc00::/7 (ipv6 ULA)
-*   ::ffff:0:0/96 (IPv4-mapped IPv6 address)
+| Network           | Description |
+| ----------------- | ----------- |
+| `127.0.0.0/8`     | loopback |
+| `169.254.0.0/16`  | ipv4 link local |
+| `10.0.0.0/8`      | rfc1918 |
+| `172.16.0.0/12`   | rfc1918 |
+| `192.168.0.0/16`  | rfc1918 |
+| `::1/128`         | ipv6 loopback |
+| `fe80::/10`       | ipv6 link local |
+| `fec0::/10`       | deprecated ipv6 site-local |
+| `fc00::/7`        | ipv6 ULA |
+| `::ffff:0:0/96`   | IPv4-mapped IPv6 address |
 
 More generally, it is recommended to either:
 
