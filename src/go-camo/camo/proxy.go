@@ -123,11 +123,20 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	// filter out rfc1918 hosts
+	// filter out rejected networks
 	if ip := net.ParseIP(u.Host); ip != nil {
-		if addr1918PrefixRegex.MatchString(ip.String()) {
+		if isRejectedIP(ip) {
 			http.Error(w, "Denylist host failure", http.StatusNotFound)
 			return
+		}
+	} else {
+		if ips, err := net.LookupIP(u.Host); err == nil {
+			for _, ip := range ips {
+				if isRejectedIP(ip) {
+					http.Error(w, "Denylist host failure", http.StatusNotFound)
+					return
+				}
+			}
 		}
 	}
 
@@ -142,8 +151,12 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	p.copyHeader(&nreq.Header, &req.Header, &ValidReqHeaders)
 	if req.Header.Get("X-Forwarded-For") == "" {
 		host, _, err := net.SplitHostPort(req.RemoteAddr)
-		if err == nil && !addr1918PrefixRegex.MatchString(host) {
-			nreq.Header.Add("X-Forwarded-For", host)
+		if err == nil {
+			if ip := net.ParseIP(u.Host); ip != nil {
+				if !isRejectedIP(ip) {
+					nreq.Header.Add("X-Forwarded-For", host)
+				}
+			}
 		}
 	}
 
