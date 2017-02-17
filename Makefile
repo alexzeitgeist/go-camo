@@ -9,7 +9,7 @@ APP_VER           := $(shell git describe --always --dirty --tags|sed 's/^v//')
 VERSION_VAR       := main.ServerVersion
 GOTEST_FLAGS      := -cpu=1,2
 GOBUILD_DEPFLAGS  := -tags netgo
-GOBUILD_LDFLAGS   ?=
+GOBUILD_LDFLAGS   ?= -s -w
 GOBUILD_FLAGS     := ${GOBUILD_DEPFLAGS} -ldflags "${GOBUILD_LDFLAGS} -X ${VERSION_VAR}=${APP_VER}"
 GB                := gb
 
@@ -97,7 +97,8 @@ release-sign:
 	@echo "signing release tarballs"
 	@(cd tar; shasum -a 256 go-camo-*.tar.gz > SHA256; \
 	  signify -S -s $${SECKEY} -m SHA256; \
-	  sed -i '' -E 's#^(.*:).*#\1 go-camo-${APP_VER} SHA256#' SHA256.sig \
+	  sed -i.bak -E 's#^(.*:).*#\1 go-camo-${APP_VER} SHA256#' SHA256.sig; \
+	  rm -f SHA256.sig.bak; \
 	 )
 
 all: build man

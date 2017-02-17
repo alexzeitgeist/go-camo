@@ -29,16 +29,17 @@ var ValidReqHeaders = map[string]bool{
 // Empty implies no filtering.
 var ValidRespHeaders = map[string]bool{
 	// Do not offer to accept range requests
-	"Accept-Ranges":     false,
-	"Cache-Control":     true,
-	"Content-Encoding":  true,
-	"Content-Type":      true,
-	"Content-Length":    true,
-	"Transfer-Encoding": true,
-	"Expires":           true,
-	"Last-Modified":     true,
+	"Accept-Ranges":    false,
+	"Cache-Control":    true,
+	"Content-Encoding": true,
+	"Content-Length":   true,
+	"Content-Type":     true,
+	"Etag":             true,
+	"Expires":          true,
+	"Last-Modified":    true,
 	// override in response with either nothing, or ServerNameVer
-	"Server": false,
+	"Server":            false,
+	"Transfer-Encoding": true,
 }
 
 // networks to reject

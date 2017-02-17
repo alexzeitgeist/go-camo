@@ -3,6 +3,14 @@ Changelog
 
 ## HEAD
 
+## 1.0.14 2017-02-15
+*   Pass through ETag header from server. The previous omission was
+    inconsistent with passing the if-none-match client request header.
+
+## 1.0.13 2017-01-22
+*   resolve potential resource leak with redirection failures and http response
+    body closing
+
 ## 1.0.12 2017-01-16
 *   better address rejection logic
 
