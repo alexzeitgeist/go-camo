@@ -1,7 +1,10 @@
 go-camo
 =======
 
-[![Build Status](https://travis-ci.org/cactus/go-camo.png?branch=master)](https://travis-ci.org/cactus/go-camo)
+[![Current Release](https://img.shields.io/github/release/cactus/go-camo.svg)](http://github.com/cactus/go-camo/releases)
+[![TravisCI](https://img.shields.io/travis/cactus/go-camo.svg)](https://travis-ci.org/cactus/go-camo)
+[![CircleCI](https://img.shields.io/circleci/project/github/cactus/go-camo.svg)](https://circleci.com/gh/cactus/go-camo)
+[![License](https://img.shields.io/github/license/cactus/go-camo.svg)](https://github.com/cactus/go-camo/blob/master/LICENSE.md)
 
 ## Contents
 
@@ -15,6 +18,7 @@ go-camo
 *   [Securing an installation](#securing-an-installation)
 *   [Configuring](#configuring)
 *   [Additional tools](#additional-tools)
+*   [Alternative Implementations](#alternative-implementations)
 *   [Changelog](#changelog)
 *   [License](#license)
 
@@ -173,7 +177,7 @@ In order to use this on Heroku with the provided Procfile, you need to:
 
 1.  Create an app specifying the https://github.com/kr/heroku-buildpack-go
     buildpack
-2.  Set `HMAC_KEY` to the key you are using
+2.  Set `GOCAMO_HMAC` to the key you are using
 
 ## Securing an installation
 
@@ -321,6 +325,11 @@ http://golang.org/doc/gopher/frontpage.png
 
 The `simple-server` utility has moved to its [own repo][14].
 
+## Alternative Implementations
+
+*   [MrSaint][17]'s go-camo [fork][18] - supports proxying additional content
+    types (fonts/css).
+
 ## Changelog
 
 See `CHANGELOG.md`
@@ -346,3 +355,5 @@ file for details.
 [14]: https://github.com/cactus/static-server
 [15]: https://en.wikipedia.org/wiki/DNS_rebinding
 [16]: https://en.wikipedia.org/wiki/IPv6_address#Special_addresses
+[17]: https://github.com/MrSaints
+[18]: https://github.com/arachnys/go-camo

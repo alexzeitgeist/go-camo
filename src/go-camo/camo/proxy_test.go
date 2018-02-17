@@ -103,7 +103,7 @@ func TestGoogleChartURL(t *testing.T) {
 
 func TestChunkedImageFile(t *testing.T) {
 	t.Parallel()
-	testURL := "http://www.igvita.com/posts/12/spdyproxy-diagram.png"
+	testURL := "https://www.igvita.com/posts/12/spdyproxy-diagram.png"
 	_, err := makeTestReq(testURL, 200)
 	assert.Nil(t, err)
 }
@@ -224,6 +224,7 @@ func Test404OnLocalhost(t *testing.T) {
 	}
 }
 
+// Test will fail if dns relay implements dns rebind prevention
 func Test404OnLoopback(t *testing.T) {
 	t.Parallel()
 	testURL := "http://i.i.com.com/foo.cgi"
@@ -259,7 +260,6 @@ func TestTimeout(t *testing.T) {
 		<-cc
 		r.Close = true
 		w.Write([]byte("ok"))
-		return
 	}))
 	defer ts.Close()
 
